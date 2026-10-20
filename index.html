@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Северный маршрут — небольшие путешествия по России и походы выходного дня. Маленькие группы, понятный план и бережный подход к природе.">
+<meta name="theme-color" content="#173b35">
+<meta name="color-scheme" content="light">
+<meta name="format-detection" content="telephone=no">
+<title>Северный маршрут — путешествия ближе</title>
+<link rel="canonical" href="https://sever-route.example/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23173b35'/%3E%3Cpath d='M14 44 L26 26 L34 36 L40 30 L50 44 Z' fill='%23d9784e'/%3E%3Ccircle cx='44' cy='20' r='5' fill='%23f0a35e'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="dns-prefetch" href="https://images.unsplash.com">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Северный маршрут">
+<meta property="og:title" content="Северный маршрут — путешествия ближе">
+<meta property="og:description" content="Небольшие путешествия по России и походы выходного дня. Маленькие группы, понятный план и бережный подход к природе.">
+<meta property="og:url" content="https://sever-route.example/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=85">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Северный маршрут — путешествия ближе">
+<meta name="twitter:description" content="Небольшие путешествия по России и походы выходного дня. Маленькие группы, понятный план и бережный подход к природе.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=85">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "Северный маршрут",
+      "url": "https://sever-route.example/",
+      "description": "Клуб путешествий: небольшие путешествия по России и походы выходного дня.",
+      "email": "hello@sever-route.example"
+    },
+    {
+      "@type": "WebSite",
+      "name": "Северный маршрут",
+      "url": "https://sever-route.example/",
+      "inLanguage": "ru-RU"
+    }
+  ]
+}
+</script>
+<style>
+/* ============ 1. Design tokens ============ */
+:root{
+  --forest:#173b35;--green:#24584d;--mint:#3f7d6e;
+  --cream:#f6f2e9;--paper:#fffdf8;--sand:#e7d8bd;
+  --orange:#d9784e;--amber:#f0a35e;
+  --ink:#1e2d29;--muted:#5d6b64;
+  --line:rgba(23,59,53,.14);
+  --shadow:0 18px 50px rgba(23,59,53,.12);
+  --shadow-lg:0 30px 70px rgba(23,59,53,.18);
+  --radius:22px;
+  --header-h:76px;
+  --grad-orange:linear-gradient(135deg,#d9784e 0%,#f0a35e 100%);
+  --grad-green:linear-gradient(135deg,#173b35 0%,#24584d 100%);
+  --grad-text:linear-gradient(120deg,#d9784e,#f0a35e);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+/* ============ 2. Base ============ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 10px);color-scheme:light}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.6 "Inter","Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+::selection{background:var(--orange);color:#fff}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:6px}
+::-webkit-scrollbar{width:12px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--green),var(--forest));border-radius:8px;border:3px solid var(--cream)}
+
+/* ============ 3. Utilities ============ */
+.container{width:min(1160px,calc(100% - 40px));margin-inline:auto}
+.skip-link{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 16px;border-radius:10px;background:var(--forest);color:#fff;font-size:13px;font-weight:700;transition:top .2s}
+.skip-link:focus{top:16px}
+section[id]{scroll-margin-top:calc(var(--header-h) + 8px)}
+
+/* ============ 4. Header / Nav ============ */
+header{position:sticky;top:0;z-index:20;background:rgba(246,242,233,.82);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--line)}
+.nav{min-height:var(--header-h);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.04em}
+.mark{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;background:var(--grad-green);color:#fff;font-size:22px;box-shadow:0 6px 16px rgba(23,59,53,.25)}
+.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.links{display:flex;gap:24px;font-size:13px;font-weight:700}
+.links a{position:relative;padding:6px 2px}
+.links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;border-radius:2px;background:var(--grad-orange);transition:width .3s var(--ease)}
+.links a:hover::after,.links a[aria-current="page"]::after{width:100%}
+.links a:hover{color:var(--orange)}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:14px 22px;background:var(--grad-orange);color:#fff;font-size:13px;font-weight:800;cursor:pointer;overflow:hidden;box-shadow:0 10px 24px rgba(217,120,78,.35);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.btn::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .5s var(--ease)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(217,120,78,.45)}
+.btn:hover::before{left:130%}
+.btn:active{transform:translateY(-1px)}
+.secondary{background:transparent;color:var(--forest);box-shadow:inset 0 0 0 2px var(--line)}
+.secondary:hover{box-shadow:inset 0 0 0 2px var(--green);background:rgba(23,59,53,.04)}
+.toggle{display:none;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:#fff;font-size:20px;cursor:pointer}
+
+/* ============ 5. Hero ============ */
+.hero{position:relative;padding:64px 0 76px;overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;pointer-events:none;z-index:0}
+.hero::before{width:420px;height:420px;top:-120px;right:-80px;background:radial-gradient(circle,rgba(217,120,78,.35),transparent 70%)}
+.hero::after{width:460px;height:460px;bottom:-160px;left:-120px;background:radial-gradient(circle,rgba(63,125,110,.35),transparent 70%)}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-size:11px;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
+.eyebrow::before{content:"";width:26px;height:2px;border-radius:2px;background:var(--grad-orange)}
+h1,h2,h3,p{margin-top:0}
+h1{margin:18px 0 20px;color:var(--forest);font-size:clamp(42px,6vw,76px);line-height:.99;letter-spacing:-.065em}
+h1 em{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent;font:italic 500 1em Georgia,serif}
+.hero-copy{max-width:510px;color:var(--muted);font-size:17px;margin-bottom:27px}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.note{display:flex;align-items:center;gap:12px;margin-top:28px;color:var(--muted);font-size:12px}
+.hero-art{position:relative;min-height:480px}
+.hero-photo{position:absolute;inset:0 18px 18px;overflow:hidden;border-radius:44% 44% 24px 24px;background:#b8c7b1;box-shadow:var(--shadow-lg)}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(23,59,53,.35))}
+.tag{position:absolute;left:0;bottom:0;padding:17px 20px;border-radius:18px;background:rgba(255,253,248,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:var(--shadow)}
+.tag strong,.tag span{display:block}
+.tag strong{color:var(--forest);font-size:14px}
+.tag span{color:var(--muted);font-size:11px}
+.stamp{position:absolute;right:0;top:34px;width:104px;height:104px;display:grid;place-items:center;padding:12px;border-radius:50%;background:var(--grad-orange);color:#fff;text-align:center;font-size:10px;font-weight:900;line-height:1.3;transform:rotate(9deg);box-shadow:0 14px 30px rgba(217,120,78,.4);animation:float 5s ease-in-out infinite}
+@keyframes float{0%,100%{transform:rotate(9deg) translateY(0)}50%{transform:rotate(9deg) translateY(-10px)}}
+
+/* ============ 6. Stats ============ */
+.stats{padding:26px 0;border-block:1px solid var(--line);background:rgba(255,253,248,.6)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.stat{display:flex;align-items:center;justify-content:center;gap:12px}
+.stat strong{background:var(--grad-text);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:28px;letter-spacing:-.05em}
+.stat span{max-width:100px;color:var(--muted);font-size:11px;line-height:1.35}
+
+/* ============ 7. Sections / About ============ */
+section{padding:96px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:36px}
+h2{margin:12px 0 0;color:var(--forest);font-size:clamp(32px,4vw,48px);line-height:1.05;letter-spacing:-.055em}
+.intro{max-width:390px;margin:0;color:var(--muted);font-size:14px}
+.about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:58px;align-items:center}
+.about-image{position:relative;height:410px;overflow:hidden;border-radius:var(--radius);background:var(--sand);box-shadow:var(--shadow)}
+.about-image img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.about-image:hover img{transform:scale(1.04)}
+.about-image::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(23,59,53,.3))}
+.about-badge{position:absolute;right:18px;bottom:18px;padding:14px 17px;border-radius:14px;background:rgba(255,253,248,.9);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--forest);font-size:12px;font-weight:800;box-shadow:var(--shadow)}
+.copy p{color:var(--muted);font-size:15px}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:27px}
+.feature{padding-top:15px;border-top:1px solid var(--line);transition:border-color .3s}
+.feature:hover{border-color:var(--orange)}
+.feature b,.feature span{display:block}
+.feature b{margin-bottom:4px;color:var(--forest);font-size:13px}
+.feature span{color:var(--muted);font-size:12px}
+
+/* ============ 8. Trips (dark) ============ */
+.dark{position:relative;background:var(--grad-green);color:#fff;overflow:hidden}
+.dark::before{content:"";position:absolute;width:500px;height:500px;top:-200px;right:-120px;border-radius:50%;background:radial-gradient(circle,rgba(217,120,78,.25),transparent 70%);pointer-events:none}
+.dark h2{color:#fff}
+.dark .eyebrow{color:#d6e1d7}
+.dark .intro{color:#c5d3cb}
+.trip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.trip{position:relative;overflow:hidden;border-radius:20px;border:1px solid transparent;background:linear-gradient(#21483f,#21483f) padding-box,linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.02) 45%) border-box;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.trip:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(0,0,0,.35)}
+.trip-image{height:220px;overflow:hidden;background:#476b5d}
+.trip-image img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.trip:hover img{transform:scale(1.07)}
+.trip-body{padding:22px}
+.meta{display:flex;justify-content:space-between;color:#b9cec3;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.trip h3{margin:12px 0 8px;font-size:21px}
+.trip p{min-height:48px;margin-bottom:17px;color:#d1ddd6;font-size:12px}
+.trip-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:15px;border-top:1px solid #ffffff26}
+.trip-bottom strong{font-size:14px}
+.trip-bottom a{color:#f3b18f;font-size:12px;font-weight:800;transition:color .2s}
+.trip-bottom a:hover{color:#ffd9c2}
+
+/* ============ 9. Offers ============ */
+.offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.offer{display:flex;gap:20px;padding:26px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s}
+.offer:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(217,120,78,.4)}
+.offer-icon{flex:0 0 54px;width:54px;height:54px;display:grid;place-items:center;border-radius:17px;background:linear-gradient(135deg,#f3e3d8,#fbe9d8);font-size:24px;box-shadow:inset 0 0 0 1px rgba(217,120,78,.15)}
+.offer h3{margin:3px 0 7px;color:var(--forest);font-size:18px}
+.offer p{margin:0;color:var(--muted);font-size:13px}
+
+/* ============ 10. Reviews ============ */
+.reviews{background:linear-gradient(180deg,#ece5d8,#f6f2e9)}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.review{padding:24px;border-radius:18px;background:var(--paper);box-shadow:0 6px 20px rgba(23,59,53,.06);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.review:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.stars{color:var(--orange);letter-spacing:.14em;font-size:13px}
+.review blockquote{margin:15px 0 20px;color:#46534d;font:17px/1.45 Georgia,serif}
+.author{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800}
+.author span{display:grid;place-items:center;width:35px;height:35px;border-radius:50%;background:var(--grad-orange);color:#fff;font-weight:800}
+
+/* ============ 11. Contacts / Form ============ */
+.contact-panel{display:grid;grid-template-columns:1fr .8fr;gap:38px;padding:clamp(28px,5vw,55px);border-radius:28px;background:linear-gradient(135deg,var(--sand),#f0e4cd);box-shadow:var(--shadow)}
+.contact-panel p{max-width:490px;color:#5f6b62;font-size:14px}
+.details{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:27px}
+.details b,.details span{display:block}
+.details b{margin-bottom:4px;color:var(--forest);font-size:12px}
+.details span{color:#5f6b62;font-size:12px}
+.form{padding:25px;border-radius:20px;background:var(--paper);box-shadow:0 10px 30px rgba(23,59,53,.08)}
+.form label{display:block;margin-bottom:6px;color:var(--forest);font-size:11px;font-weight:800}
+.form input,.form select{width:100%;margin-bottom:15px;padding:13px 14px;border:1px solid var(--line);border-radius:11px;outline:none;background:#fff;color:var(--ink);font:inherit;font-size:13px;transition:border-color .2s,box-shadow .2s}
+.form input:focus,.form select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(36,88,77,.15)}
+.form .btn{width:100%}
+.message{min-height:20px;margin:12px 0 0;color:var(--green);font-size:12px}
+
+/* ============ 12. Footer ============ */
+footer{padding:30px 0;background:var(--forest);color:#d1ddd6;border-top:3px solid transparent;border-image:var(--grad-orange) 1}
+.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px}
+footer .brand{color:#fff}
+footer .mark{background:var(--grad-orange);color:#fff}
+.footer-note,.footer-links{font-size:11px}
+.footer-links{display:flex;gap:18px}
+.footer-links a{transition:color .2s}
+.footer-links a:hover{color:#f3b18f}
+
+/* ============ 13. Reveal / Motion ============ */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+@media (scripting:none){.reveal{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}.reveal{opacity:1;transform:none}}
+
+/* ============ 14. Responsive ============ */
+@media(max-width:900px){
+  .links{gap:13px;font-size:12px}
+  .nav-cta{display:none}
+  .hero-grid{gap:24px}
+  .hero-art{min-height:410px}
+  .about-grid{gap:30px}
+  .trip-image{height:180px}
+  .trip-body{padding:17px}
+}
+@media(max-width:700px){
+  .container{width:min(100% - 30px,560px)}
+  .nav{min-height:68px}
+  .toggle{display:block}
+  .links{display:none;position:absolute;top:68px;left:0;right:0;padding:18px 22px 22px;flex-direction:column;gap:0;background:rgba(246,242,233,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  .links.open{display:flex}
+  .links a{padding:11px 0;border-bottom:1px solid var(--line)}
+  .hero{padding:40px 0 48px}
+  .hero-grid,.about-grid,.contact-panel{grid-template-columns:1fr}
+  .hero-art{min-height:390px;margin-top:10px}
+  .hero-photo{inset:0 12px 14px}
+  .stamp{width:82px;height:82px;font-size:9px}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:22px 10px}
+  .stat{justify-content:flex-start}
+  .stat strong{font-size:23px}
+  section{padding:65px 0}
+  .section-head{align-items:flex-start;flex-direction:column;gap:15px}
+  .about-image{height:320px}
+  .trip-grid,.review-grid,.offer-grid{grid-template-columns:1fr}
+  .trip-image{height:235px}
+  .trip p{min-height:0}
+  .offer{padding:20px}
+  .details{gap:15px}
+  .footer-row{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home" aria-label="Северный маршрут — на главную"><span class="mark" aria-hidden="true">↟</span><span>Северный маршрут<small>Клуб путешествий</small></span></a>
+    <button class="toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav">☰</button>
+    <nav class="links" id="site-nav" aria-label="Основная навигация">
+      <a href="#about">О клубе</a>
+      <a href="#trips">Маршруты</a>
+      <a href="#offers">Почему мы</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="btn nav-cta" href="#contacts">Подобрать маршрут ↗</a>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="reveal">
+        <span class="eyebrow">Маленькие поездки · большие впечатления</span>
+        <h1>Ближе к природе.<br>Ближе к <em>себе.</em></h1>
+        <p class="hero-copy">Открываем тихие озёра, лесные тропы и места, куда хочется возвращаться. Путешествия по России в небольшой компании — без спешки и сложной подготовки.</p>
+        <div class="actions">
+          <a class="btn" href="#trips">Выбрать путешествие ↗</a>
+          <a class="btn secondary" href="#about">Узнать о клубе ↓</a>
+        </div>
+        <div class="note">🌲 ⛰️ ☀️ &nbsp; Небольшие группы · заботливая организация</div>
+      </div>
+      <div class="hero-art reveal">
+        <div class="hero-photo">
+          <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=85" srcset="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=85 1200w, https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1600&q=85 1600w" sizes="(max-width:700px) 100vw, 50vw" width="1200" height="800" fetchpriority="high" alt="Олени на фоне леса в естественной среде">
+        </div>
+        <div class="stamp">ВЫХОДИ<br>ЗА РАМКИ<br>ПРИВЫЧНОГО</div>
+        <div class="tag"><strong>Твой следующий маршрут</strong><span>Начинается с одного решения</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong>30+</strong><span>маршрутов для разных уровней</span></div>
+      <div class="stat"><strong>8 лет</strong><span>собираем людей и впечатления</span></div>
+      <div class="stat"><strong>6–12</strong><span>человек в одной группе</span></div>
+      <div class="stat"><strong>100%</strong><span>внимания к деталям поездки</span></div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="container about-grid">
+      <div class="about-image reveal">
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85" srcset="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=85 1000w, https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1400&q=85 1400w" sizes="(max-width:700px) 100vw, 45vw" width="1000" height="667" loading="lazy" decoding="async" alt="Горное озеро и зелёные склоны">
+        <div class="about-badge">Меньше суеты — больше жизни</div>
+      </div>
+      <div class="copy reveal">
+        <span class="eyebrow">О нашем клубе</span>
+        <h2>Путешествия, в которых есть место настоящему</h2>
+        <p>«Северный маршрут» — концепция клуба для тех, кому хочется чаще выбираться из города, открывать новые места и делить впечатления с близкими по духу людьми.</p>
+        <p>Мы продумываем логистику, подбираем маршруты под уровень подготовки и оставляем достаточно времени, чтобы не просто увидеть место, а почувствовать его.</p>
+        <div class="features">
+          <div class="feature"><b>Маленькие группы</b><span>Уютная атмосфера и внимание каждому.</span></div>
+          <div class="feature"><b>Понятный план</b><span>Подготовка и список вещей заранее.</span></div>
+          <div class="feature"><b>Разный темп</b><span>От прогулок до активных троп.</span></div>
+          <div class="feature"><b>Бережный подход</b><span>Уважаем природу и местные правила.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark" id="trips">
+    <div class="container">
+      <div class="section-head reveal">
+        <div><span class="eyebrow">Выбери направление</span><h2>Маршруты для перезагрузки</h2></div>
+        <p class="intro">Три идеи для первой поездки. Направления и цены — демонстрационные примеры для учебного макета.</p>
+      </div>
+      <div class="trip-grid">
+        <article class="trip reveal">
+          <div class="trip-image"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85" srcset="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=85 1200w" sizes="(max-width:700px) 100vw, (max-width:900px) 50vw, 33vw" width="900" height="600" loading="lazy" decoding="async" alt="Пейзаж гор и долины"></div>
+          <div class="trip-body">
+            <div class="meta"><span>2 дня · легко</span><span>01</span></div>
+            <h3>Тишина у озера</h3>
+            <p>Лесная прогулка, береговая стоянка и вечер у костра в хорошей компании.</p>
+            <div class="trip-bottom"><strong>от 5 900 ₽</strong><a href="#contacts" data-trip="Тишина у озера">Подробнее ↗</a></div>
+          </div>
+        </article>
+        <article class="trip reveal">
+          <div class="trip-image"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85" srcset="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85 1200w" sizes="(max-width:700px) 100vw, (max-width:900px) 50vw, 33vw" width="900" height="600" loading="lazy" decoding="async" alt="Скалистые горные вершины"></div>
+          <div class="trip-body">
+            <div class="meta"><span>3 дня · средне</span><span>02</span></div>
+            <h3>Тропа к вершинам</h3>
+            <p>Панорамные виды, свежий воздух и маршрут для тех, кто любит высоту.</p>
+            <div class="trip-bottom"><strong>от 8 500 ₽</strong><a href="#contacts" data-trip="Тропа к вершинам">Подробнее ↗</a></div>
+          </div>
+        </article>
+        <article class="trip reveal">
+          <div class="trip-image"><img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=85" srcset="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=85 900w, https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=85 1200w" sizes="(max-width:700px) 100vw, (max-width:900px) 50vw, 33vw" width="900" height="600" loading="lazy" decoding="async" alt="Солнечный свет в хвойном лесу"></div>
+          <div class="trip-body">
+            <div class="meta"><span>1 день · легко</span><span>03</span></div>
+            <h3>Лесной выходной</h3>
+            <p>Неспешный маршрут, наблюдение за природой и пикник вдали от шума.</p>
+            <div class="trip-bottom"><strong>от 2 400 ₽</strong><a href="#contacts" data-trip="Лесной выходной">Подробнее ↗</a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="offers">
+    <div class="container">
+      <div class="section-head reveal">
+        <div><span class="eyebrow">Комфорт без лишней суеты</span><h2>Почему с нами проще</h2></div>
+        <p class="intro">Продумываем детали, чтобы вы могли сосредоточиться на впечатлениях, а не на организационных вопросах.</p>
+      </div>
+      <div class="offer-grid">
+        <article class="offer reveal"><div class="offer-icon" aria-hidden="true">🧭</div><div><h3>Маршрут под тебя</h3><p>Заранее рассказываем о сложности, длительности и необходимой экипировке.</p></div></article>
+        <article class="offer reveal"><div class="offer-icon" aria-hidden="true">🎒</div><div><h3>Понятная подготовка</h3><p>Отправляем чек-лист вещей и объясняем, что взять с собой впервые.</p></div></article>
+        <article class="offer reveal"><div class="offer-icon" aria-hidden="true">🤝</div><div><h3>Люди на одной волне</h3><p>Небольшая группа помогает познакомиться и чувствовать себя увереннее.</p></div></article>
+        <article class="offer reveal"><div class="offer-icon" aria-hidden="true">🍃</div><div><h3>Бережно к природе</h3><p>Соблюдаем правила посещения природных территорий и не оставляем мусор.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews" id="reviews">
+    <div class="container">
+      <div class="section-head reveal">
+        <div><span class="eyebrow">Тёплые слова</span><h2>Впечатления участников</h2></div>
+        <p class="intro">Отзывы демонстрационные. Перед публикацией замените их на реальные отзывы участников.</p>
+      </div>
+      <div class="review-grid">
+        <article class="review reveal"><div class="stars" aria-label="Оценка 5 из 5">★★★★★</div><blockquote>«Впервые выбралась в поход одна — и уже на первом привале почувствовала себя частью команды».</blockquote><div class="author"><span aria-hidden="true">А</span> Анна · прогулка к озеру</div></article>
+        <article class="review reveal"><div class="stars" aria-label="Оценка 5 из 5">★★★★★</div><blockquote>«Всё было понятно заранее: маршрут, вещи, время. Осталось только наслаждаться видами».</blockquote><div class="author"><span aria-hidden="true">М</span> Михаил · горный маршрут</div></article>
+        <article class="review reveal"><div class="stars" aria-label="Оценка 5 из 5">★★★★★</div><blockquote>«Именно такой перезагрузки мне не хватало. Спокойный темп и очень красивые места».</blockquote><div class="author"><span aria-hidden="true">Е</span> Елена · лесной выходной</div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="container">
+      <div class="contact-panel reveal">
+        <div>
+          <span class="eyebrow">Начнём планировать</span>
+          <h2>Куда отправимся<br>в следующий раз?</h2>
+          <p>Оставьте заявку — поможем выбрать направление по времени, интересам и уровню подготовки. Форма демонстрационная и не отправляет данные на сервер.</p>
+          <div class="details">
+            <div><b>Связаться</b><span>hello@sever-route.example</span></div>
+            <div><b>На связи</b><span>Пн–Пт, 10:00–19:00</span></div>
+            <div><b>Стартовая точка</b><span>Москва, место встречи уточняется</span></div>
+            <div><b>Соцсети</b><span>@sever_route · учебный макет</span></div>
+          </div>
+        </div>
+        <form class="form" id="lead-form" novalidate>
+          <label for="name">Как к вам обращаться?</label>
+          <input id="name" name="name" type="text" placeholder="Ваше имя" autocomplete="name" required>
+          <label for="email">Электронная почта</label>
+          <input id="email" name="email" type="email" placeholder="name@example.com" autocomplete="email" required>
+          <label for="trip">Что вам интересно?</label>
+          <select id="trip" name="trip">
+            <option>Пока не определился(ась)</option>
+            <option>Тишина у озера</option>
+            <option>Тропа к вершинам</option>
+            <option>Лесной выходной</option>
+          </select>
+          <button class="btn" type="submit">Отправить заявку ↗</button>
+          <p class="message" id="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="container footer-row">
+    <a class="brand" href="#home" aria-label="Северный маршрут — на главную"><span class="mark" aria-hidden="true">↟</span><span>Северный маршрут<small>Клуб путешествий</small></span></a>
+    <span class="footer-note">Учебный проект · цены, отзывы и контакты демонстрационные</span>
+    <div class="footer-links">
+      <a href="#about">О клубе</a>
+      <a href="#trips">Маршруты</a>
+      <a href="#contacts">Контакты</a>
+    </div>
+  </div>
+</footer>
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+<script>
+(() => {
+  'use strict';
+
+  /* --- Мобильное меню --- */
+  const toggle = document.querySelector('.toggle');
+  const links = document.querySelector('.links');
+  const setMenu = (open) => {
+    if (!toggle || !links) return;
+    links.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    toggle.textContent = open ? '×' : '☰';
+  };
+  if (toggle && links) {
+    toggle.addEventListener('click', () => setMenu(!links.classList.contains('open')));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && links.classList.contains('open')) setMenu(false);
+    });
+  }
+
+  /* --- Выбор маршрута из карточки --- */
+  document.querySelectorAll('[data-trip]').forEach(a => {
+    a.addEventListener('click', () => {
+      const select = document.querySelector('#trip');
+      if (select) select.value = a.dataset.trip;
+    });
+  });
+
+  /* --- Демонстрационная форма --- */
+  const form = document.querySelector('#lead-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = form.querySelector('#name').value.trim();
+      const msg = document.querySelector('#form-message');
+      if (msg) msg.textContent = `Спасибо, ${name}! Это демонстрационная форма: данные не отправлены.`;
+      form.reset();
+    });
+  }
+
+  /* --- Появление блоков (reveal) с фолбэком --- */
+  const items = document.querySelectorAll('.reveal');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if ('IntersectionObserver' in window && !reduced) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(i => obs.observe(i));
+  } else {
+    items.forEach(i => i.classList.add('visible'));
+  }
+
+  /* --- Подсветка активного пункта меню (aria-current) --- */
+  const navLinks = Array.from(document.querySelectorAll('.links a'));
+  const sections = navLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+  if ('IntersectionObserver' in window && sections.length) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.removeAttribute('aria-current'));
+          const active = navLinks.find(l => l.getAttribute('href') === '#' + entry.target.id);
+          if (active) active.setAttribute('aria-current', 'page');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(s => spy.observe(s));
+  }
+})();
+</script>
+</body>
+</html>
